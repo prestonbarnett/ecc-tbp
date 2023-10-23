@@ -19,4 +19,4 @@ jobs:
       - name: Conan Install Deps
         run: conan install . --output-folder=build --build=missing
       - name: Run Tests
-        run: cmake -S . -B build -G "Unix Makefiles" && ctest
+        run: cmake --preset conan-release -S . -B build -G "Unix Makefiles" && ctest
