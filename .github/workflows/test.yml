@@ -1,0 +1,22 @@
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Conan
+        run: pip install "conan" pytest && conan --version
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.13
+        with:
+          cmake-version: '3.26.x'
+      - name: "create and enter build dir"
+        run: |
+          mkdir build
+          cd build
+      - name: Run Tests
+        run: cmake .. && cmake --build . -- -j8 && ctest
