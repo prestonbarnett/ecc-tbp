@@ -22,7 +22,5 @@ jobs:
         run: cmake -S . -B build -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=/home/runner/work/ecc-tbp/ecc-tbp/build/build/Release/generators/conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
       - name: Run Make
         run: cd build && make -j4
-      - uses: actions/upload-artifact@v3
-        with:
-         name: artifact
-         path: .
+      - name: Run Tests
+        run: ./build/tests/google_tests_run
