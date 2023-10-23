@@ -19,4 +19,4 @@ jobs:
       - name: Conan Install Deps
         run: conan install . --output-folder=build --build=missing
       - name: Run Tests
-        run: cmake --preset conan-release -S . -B build -G "Unix Makefiles" && ctest
+        run: cmake -S . -B build -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=/home/runner/work/ecc-tbp/ecc-tbp/build/build/Release/generators/conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release'
