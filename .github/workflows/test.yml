@@ -23,6 +23,6 @@ jobs:
       - name: Conan Install Deps
         run: conan install . --output-folder=cmake-build-debug --build=missing
       - name: Run CMake
-        run: cmake -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/usr/bin/ninja" -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake -G Ninja -S . -B ./cmake-build-debug
+        run: cmake -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=${{ ninjaDest }}" -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake -G Ninja -S . -B ./cmake-build-debug
       - name: Run Tests
         run: ./cmake-build-debug/tests/google_tests_run
