@@ -10,6 +10,10 @@ jobs:
           python-version: 3.9
       - name: Install Conan
         run: pip install "conan" pytest && conan --version
+      - name: Setup Ninja
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.10.0
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.13
         with:
@@ -19,8 +23,6 @@ jobs:
       - name: Conan Install Deps
         run: conan install . --output-folder=build --build=missing
       - name: Run CMake
-        run: cmake -S . -B build -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=/home/runner/work/ecc-tbp/ecc-tbp/build/build/Release/generators/conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
-      - name: Run Make
-        run: cd build && make -j4
+        run: cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake -G Ninja -S . -B ./cmake-build-debug
       - name: Run Tests
-        run: ./build/tests/google_tests_run
+        run: ./cmake-build-debug/tests/google_tests_run
